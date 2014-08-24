@@ -28,7 +28,7 @@ void Worm::Do(G35& g35) {
     g35.set_color(tail_, G35::MAX_INTENSITY, COLOR_BLACK);
     tail_ += tail_dir_;
   }
-  int8_t length = abs(head_ - tail_);
+  int8_t length = abs((int)(head_ - tail_));
   if (length < UNIT) {
     is_stretching_ = true;
   }

@@ -25,8 +25,8 @@ class Eye {
     }
   }
 
-  uint16_t get_position() { return position_; }
-  void set_position(uint16_t value) { position_ = value; }
+  light_count_t get_position() { return position_; }
+  void set_position(light_count_t value) { position_ = value; }
 
   void Do(G35& g35) {
     if (state_ == INIT) {
@@ -52,22 +52,25 @@ class Eye {
   };
 
   color_t color_;
-  uint16_t position_;
+  light_count_t position_;
   uint32_t next_blink_;
   uint8_t state_;
 };
 
-class Eyes : public LightProgram {
- public:
-  Eyes(G35& g35);
-  uint32_t Do();
+class Eyes : public LightProgram
+{
+public:
+    Eyes(G35& g35);
+    bool Initialize(uint8_t pattern, uint8_t option, delay_t delay);
+    uint32_t Do();
 
- private:
-  enum { EYE_COUNT = 10 };
+private:
+    enum { EYE_COUNT = 10 };
 
-  uint8_t count_;
-  uint32_t next_eye_;
-  Eye eyes_[EYE_COUNT];
+    uint8_t count_;
+    uint32_t next_eye_;
+    Eye eyes_[EYE_COUNT];
+    uint8_t eye_count_;
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_EYES_H

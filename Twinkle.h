@@ -13,10 +13,14 @@
 
 #include <LightProgram.h>
 
-class Twinkle : public LightProgram {
- public:
-  Twinkle(G35& g35);
-  uint32_t Do();
+class Twinkle : public LightProgram
+{
+public:
+    Twinkle(G35& g35);
+    bool Initialize(pattern_t pattern, option_t option, delay_t delay);
+    uint32_t Do();
+
+private:
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_TWINKLE_H

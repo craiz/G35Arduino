@@ -13,13 +13,14 @@
 
 #include <LightProgram.h>
 
-class SpookySlow : public LightProgram {
- public:
-  SpookySlow(G35& g35);
-  uint32_t Do();
+class SpookySlow : public LightProgram
+{
+public:
+    SpookySlow(G35& g35);
+    uint32_t Do();
 
- private:
-  uint16_t remaining_;
+private:
+    light_count_t remaining_;
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_SPOOKY_SLOW_H

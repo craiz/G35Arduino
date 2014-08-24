@@ -14,15 +14,17 @@
 #include <LightProgram.h>
 #include <Worm.h>
 
-class Inchworm : public LightProgram {
- public:
-  Inchworm(G35& g35);
-  uint32_t Do();
+class Inchworm : public LightProgram
+{
+public:
+    Inchworm(G35& g35);
+    bool Initialize(pattern_t pattern, uint8_t option, delay_t delay);
+    uint32_t Do();
 
- private:
-  uint8_t count_;
-  uint32_t next_worm_;
-  Worm worms_[6];
+private:
+    uint8_t count_;
+    uint32_t next_worm_;
+    Worm worms_[6];
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_INCHWORM_H

@@ -15,16 +15,18 @@
 
 // Stereo was inspired by SparkFun's "FAKE MUSIC!" demo for their
 // Bargraph Breakout board. Thanks, guys!
-class Stereo : public LightProgram {
- public:
-  Stereo(G35& g35);
-  uint32_t Do();
+class Stereo : public LightProgram
+{
+public:
+    Stereo(G35& g35);
+    bool Initialize(pattern_t pattern, option_t option, delay_t delay);
+    uint32_t Do();
 
- private:
-  const uint8_t light_count_;
-  const float half_light_count_;
-  const float level0_, level1_, level2_, level3_;
-  float step_, peak_;
+private:
+    const light_count_t light_count_;
+    const float half_light_count_;
+    const float level0_, level1_, level2_, level3_;
+    float step_, peak_;
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_STEREO_H

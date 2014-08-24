@@ -24,20 +24,20 @@ class G35StringGroup : public G35 {
 
   void AddString(G35* g35);
 
-  virtual uint16_t get_light_count();
+  virtual light_count_t get_light_count();
 
-  virtual void set_color(uint8_t bulb, uint8_t intensity, color_t color);
+  virtual void set_color(light_count_t bulb, uint8_t intensity, color_t color);
   virtual void broadcast_intensity(uint8_t intensity);
 
  protected:
-  virtual uint8_t get_broadcast_bulb();
+  virtual light_count_t get_broadcast_bulb();
 
  private:
   enum { MAX_STRINGS = 16 };
 
   uint8_t string_count_;
   G35* strings_[MAX_STRINGS];
-  uint16_t string_offsets_[MAX_STRINGS];
+  light_count_t string_offsets_[MAX_STRINGS];
 };
 
 #endif  // INCLUDE_G35_STRING_GROUP_H

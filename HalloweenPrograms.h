@@ -22,7 +22,7 @@ class HalloweenProgramGroup : public LightProgramGroup {
  public:
   enum { ProgramCount = 5 };
 
-  virtual LightProgram* CreateProgram(G35& lights, uint8_t program_index);
+  virtual LightProgram* CreateProgram(G35& lights, uint8_t program_index, pattern_t pattern);
 };
 
 #endif  // INCLUDE_G35_HALLOWEEN_PROGRAMS_H

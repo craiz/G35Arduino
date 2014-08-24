@@ -8,19 +8,36 @@
   See README for complete attributions.
 */
 
+#include <DebugConfig.h>
+#if DEBUG_LIGHT_PROGRAM_SPOOKYSLOW
+#define DEBUG_ENABLED 1
+#endif
+#if DEBUG_ENABLED
+#define DebugPrintf(fmt, ...) SerialPrintf(fmt, ##__VA_ARGS__)
+#else
+#define DebugPrintf(...)
+#endif
+
 #include <SpookySlow.h>
 
-SpookySlow::SpookySlow(G35& g35) : LightProgram(g35), remaining_(0) {
+SpookySlow::SpookySlow(G35& g35) : LightProgram(g35), remaining_(0)
+{
+    DebugPrintf("PumpkinChase\n");
+
+    delay_default_ = 1000;
 }
 
-uint32_t SpookySlow::Do() {
-  if (remaining_ == 0) {
-    remaining_ = rand() % (light_count_ >> 3);
-    g35_.fill_color(0, light_count_, 255, COLOR_BLACK);
-  }
-  if (remaining_-- > 2) {
-    g35_.set_color(rand() % light_count_, G35::MAX_INTENSITY,
-                   (rand() & 1) ? COLOR_ORANGE : COLOR_PALE_ORANGE);
-  }
-  return 1000;
+uint32_t SpookySlow::Do()
+{
+    if (remaining_ == 0)
+    {
+        remaining_ = rand() % (light_count_ >> 3);
+        g35_.fill_color(0, light_count_, 255, COLOR_BLACK);
+    }
+    if (remaining_-- > 2)
+    {
+        g35_.set_color(rand() % light_count_, G35::MAX_INTENSITY,
+                       (rand() & 1) ? COLOR_ORANGE : COLOR_PALE_ORANGE);
+    }
+    return delay_;
 }

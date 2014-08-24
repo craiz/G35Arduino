@@ -13,16 +13,17 @@
 
 #include <LightProgram.h>
 
-class Pulse : public LightProgram {
- public:
-  Pulse(G35& g35);
-  uint32_t Do();
+class Pulse : public LightProgram
+{
+public:
+    Pulse(G35& g35);
+    uint32_t Do();
 
- private:
-  uint8_t count_;
-  uint16_t sequence_;
+private:
+    light_count_t count_;
+    sequence_t sequence_;
 
-  static bool pulser(uint16_t sequence, color_t& color, uint8_t& intensity);
+    static bool pulser(sequence_t sequence, color_t& color, uint8_t& intensity);
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_PULSE_H

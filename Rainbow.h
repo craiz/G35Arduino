@@ -15,20 +15,24 @@
 
 #include <LightProgram.h>
 
-class Rainbow : public LightProgram {
+class Rainbow : public LightProgram
+{
 public:
     Rainbow(G35& g35);
+
     uint32_t Do();
+    void Update(pattern_t pattern, option_t option, delay_t delay);
+    bool Initialize(pattern_t pattern, option_t option, delay_t delay);
 
 private:
-    uint32_t Wheel(uint16_t WheelPos);
-    uint32_t LineRG(uint16_t WheelPos);
-    uint32_t LineGB(uint16_t WheelPos);
-    uint32_t LineBR(uint16_t WheelPos);
 
-    uint8_t wait_;
-    uint8_t pattern_;
-    uint8_t step_;
+    void SetBulb(light_count_t bulb);
+
+    light_count_t active_bulb_count_;
+    int8_t color_position_;
+    int8_t color_increment_;
+    uint8_t palette_size_;
 };
 
 #endif
+

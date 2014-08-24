@@ -18,7 +18,7 @@ void G35StringGroup::AddString(G35* g35) {
   if (string_count_ == MAX_STRINGS) {
     return;
   }
-  uint16_t light_count = g35->get_light_count();
+  light_count_t light_count = g35->get_light_count();
   string_offsets_[string_count_] =
     string_count_ == 0 ?
     light_count :
@@ -28,11 +28,11 @@ void G35StringGroup::AddString(G35* g35) {
   light_count_ += light_count;
 }
 
-uint16_t G35StringGroup::get_light_count() {
+light_count_t G35StringGroup::get_light_count() {
   return light_count_;
 }
 
-void G35StringGroup::set_color(uint8_t bulb, uint8_t intensity, color_t color) {
+void G35StringGroup::set_color(light_count_t bulb, uint8_t intensity, color_t color) {
   uint8_t string = 0;
   while (bulb >= string_offsets_[string] && string < string_count_) {
     string++;
@@ -56,6 +56,6 @@ void G35StringGroup::broadcast_intensity(uint8_t intensity) {
   }
 }
 
-uint8_t G35StringGroup::get_broadcast_bulb() {
+light_count_t G35StringGroup::get_broadcast_bulb() {
   return 0;  // In this implementation, shouldn't ever be called.
 }

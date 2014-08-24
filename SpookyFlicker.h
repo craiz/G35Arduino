@@ -13,16 +13,17 @@
 
 #include <LightProgram.h>
 
-class SpookyFlicker : public LightProgram {
- public:
-  SpookyFlicker(G35& g35);
-  ~SpookyFlicker();
+class SpookyFlicker : public LightProgram
+{
+public:
+    SpookyFlicker(G35& g35);
+    virtual ~SpookyFlicker();
+    bool Initialize(pattern_t pattern, option_t option, delay_t delay);
+    uint32_t Do();
 
-  uint32_t Do();
-
- private:
-  uint8_t *intensities_;
-  int8_t *deltas_;
+private:
+    uint8_t *intensities_;
+    int8_t *deltas_;
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_SPOOKY_FLICKER_H

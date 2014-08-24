@@ -14,16 +14,21 @@
 #include <LightProgram.h>
 #include <Worm.h>
 
-// Inchworm with Halloween colors. :|
-class Creepers : public LightProgram {
- public:
-  Creepers(G35& g35);
-  uint32_t Do();
+#define NUM_CREEPER_WORMS 6
 
- private:
-  uint8_t count_;
-  uint32_t next_worm_;
-  Worm worms_[6];
+
+// Inchworm with Halloween colors. :|
+class Creepers : public LightProgram
+{
+public:
+    Creepers(G35& g35);
+    bool Initialize(pattern_t pattern, uint8_t option, delay_t delay);
+    uint32_t Do();
+
+private:
+    uint8_t count_;
+    uint32_t next_worm_;
+    Worm worms_[NUM_CREEPER_WORMS];
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_CREEPERS_H

@@ -12,7 +12,7 @@
 #include <MEOPrograms.h>
 
 LightProgram* MEOProgramGroup::CreateProgram(G35& lights,
-                                             uint8_t program_index) {
+                                             uint8_t program_index, pattern_t pattern) {
   return new Rainbow(lights);
   // switch (program_index % ProgramCount) {
   // case 0: return new MEOWhites(lights, pattern);

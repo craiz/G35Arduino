@@ -8,19 +8,43 @@
   See README for complete attributions.
 */
 
+#include <DebugConfig.h>
+#if DEBUG_LIGHT_PROGRAM_CYLON
+#define DEBUG_ENABLED 1
+#endif
+#if DEBUG_ENABLED
+#define dbgPrintf(_printfExp) printf _printfExp
+#else
+#define dbgPrintf(_printfExp)
+#endif
+
+
+
 #include <Cylon.h>
 
-Cylon::Cylon(G35& g35) : LightProgram(g35), orbiter_(0.5, 0.01), last_x_(0) {}
+Cylon::Cylon(G35& g35)
+  : LightProgram(g35),
+  orbiter_(0.5, 0.01),
+  last_x_(0)
+{
+#if DEBUG_ENABLED
+    ProgramName = "Cylon";
+#endif
 
-uint32_t Cylon::Do() {
-  orbiter_.Do();
-  uint8_t x = orbiter_.x_local(light_count_, light_count_ >> 1);
+    delay_default_ = g35_.get_bulb_frame() >> 1;
+}
 
-  if (last_x_ != x) {
-    g35_.set_color(last_x_, 255, COLOR_BLACK);
-    last_x_ = x;
-  }
-  g35_.set_color(x, 255, orbiter_.color());
+uint32_t Cylon::Do()
+{
+    orbiter_.Do();
+    uint8_t x = orbiter_.x_local(light_count_, light_count_ >> 1);
 
-  return bulb_frame_ >> 1;
+    if (last_x_ != x)
+    {
+        g35_.set_color(last_x_, 255, COLOR_BLACK);
+        last_x_ = x;
+    }
+    g35_.set_color(x, 255, orbiter_.color());
+
+    return delay_;
 }

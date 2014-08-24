@@ -20,12 +20,14 @@
 #include <Cylon.h>
 #include <Stereo.h>
 #include <Inchworm.h>
+#include <Rainbow.h>
 
-class PlusProgramGroup : public LightProgramGroup {
- public:
-  enum { ProgramCount = 9 };
+class PlusProgramGroup : public LightProgramGroup
+{
+public:
+    enum { ProgramCount = 10 };
 
-  virtual LightProgram* CreateProgram(G35& lights, uint8_t program_index);
+    virtual LightProgram* CreateProgram(G35& lights, uint8_t program_index);
 };
 
 #endif  // INCLUDE_G35_PLUS_PROGRAMS_H

@@ -13,17 +13,18 @@
 
 #include <LightProgram.h>
 
-class Meteorite : public LightProgram {
- public:
-  Meteorite(G35& g35);
-  uint32_t Do();
+class Meteorite : public LightProgram
+{
+public:
+    Meteorite(G35& g35);
+    uint32_t Do();
 
- private:
-  static const uint8_t TAIL = 5;
+private:
+    static const uint8_t TAIL = 5;
 
-  uint8_t d_;
-  int16_t position_;
-  color_t colors_[TAIL];
+    delay_t d_;
+    light_count_t position_;
+    color_t colors_[TAIL];
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_METEORITE_H

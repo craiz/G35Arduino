@@ -11,7 +11,7 @@
 #include <HalloweenPrograms.h>
 
 LightProgram* HalloweenProgramGroup::CreateProgram(G35& lights,
-                                                   uint8_t program_index) {
+                                                   uint8_t program_index, pattern_t pattern) {
   switch (program_index % ProgramCount) {
   case 0: return new Eyes(lights);
   case 1: return new Creepers(lights);

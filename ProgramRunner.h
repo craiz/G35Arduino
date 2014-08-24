@@ -20,82 +20,42 @@
 // to give it the next program when it's time. In Arduino terms, it's what
 // you want to call in your loop() method.
 //
-// switch_program() is public because the application might sometimes want
-// to change programs more frequently, for example if you've implemented
+// SwitchProgram() and AdvanceProgram() allow the application to control
+// when/how programs changed.  For example if you've implemented
 // a remote control receiver.
-class ProgramRunner {
- public:
- ProgramRunner(LightProgram* (*program_creator)(uint8_t program_index),
-	       uint8_t program_count, uint16_t program_duration_seconds)
-   : program_count_(program_count),
-    program_duration_seconds_(program_duration_seconds),
-    program_index_(program_count_ - 1),
-    next_switch_millis_(0),
-    program_creator_(program_creator),
-    program_(NULL),
-    is_switch_time_based_(true) {}
+class ProgramRunner
+{
+public:
+    ProgramRunner(LightProgram* (*programCreator)(uint8_t programIndex), uint8_t programCount);
 
-  // Stops automatic, time-based switching, leaving you to call
-  // switch_program_to() yourself to switch to specific light programs. Call
-  // this once during initialization.
-  void disable_time_based_switching() {
-    is_switch_time_based_ = false;
-  }
+    void loop();
+    void SwitchProgram(uint8_t programIndex, pattern_t pattern, option_t option, delay_t delay);
+    void AdvanceProgram();
+    void SetAutoAdvanceEnabled(bool enabled);
+    void SetAutoAdvanceBounds(uint8_t minIndex, uint8_t maxIndex);
+    void SetDuration(uint16_t programDurationSeconds);
+    void UpdateProgram(uint8_t programIndex, pattern_t pattern, option_t option, delay_t delay);
 
-  // Calls the correct light program as often as needed (e.g., every few
-  // milliseconds or however long the program defines an animation frame to be).
-  // You should call this method as often as you can.
-  void loop() {
-    uint32_t now = millis();
-    if (is_switch_time_based() && now >= next_switch_millis_) {
-      switch_program();
-    } else {
-      // This is the first loop() with manual switching. We need to have some
-      // program ready at first, so we'll pick the first one. If you don't want
-      // this behavior, just call switch_program_to() before your first loop().
-      if (program_ == NULL) {
-        switch_program_to(0);
-      }
-    }
-    if (now >= next_do_millis_) {
-      next_do_millis_ = now + program_->Do();
-    }
-  }
+    void Kick();
 
-  // Switches to a specific light program.
-  void switch_program_to(uint8_t program_index) {
-    uint32_t now = millis();
-    if (is_switch_time_based()) {
-      next_switch_millis_ = now + (uint32_t)(program_duration_seconds_) * 1000;
-    }
-    next_do_millis_ = now;
-    if (program_ != NULL) {
-      delete program_;
-    }
-    program_index_ = program_index;
-    program_ = program_creator_(program_index_);
-  }
+    uint32_t GetLastSwitchMillis();
+    uint8_t GetProgramIndex();
 
-  // Switches to the next light program according to the program_creator
-  // method.
-  void switch_program() {
-    switch_program_to(++program_index_);
-    if (program_index_ == program_count_) {
-      program_index_ = 0;
-    }
-  }
+private:
 
- private:
-  bool is_switch_time_based() { return is_switch_time_based_; }
+    bool SwitchProgramInternal(uint8_t programIndex, pattern_t pattern, option_t option, delay_t delay);
 
-  uint8_t program_count_;
-  uint16_t program_duration_seconds_;
-  uint8_t program_index_;
-  uint32_t next_switch_millis_;
-  uint32_t next_do_millis_;
-  LightProgram* (*program_creator_)(uint8_t program_index);
-  LightProgram* program_;
-  bool is_switch_time_based_;
+    bool m_autoAdvance;
+    uint8_t m_autoAdvanceMinIndex;
+    uint8_t m_autoAdvanceMaxIndex;
+    uint8_t m_programCount;
+    uint16_t m_programDurationSeconds;
+    uint8_t m_programIndex;
+    uint32_t m_lastSwitchMillis; // When last program switch occurred.
+    uint32_t m_lastDoMillis; // When last program 'do' was run.
+    uint32_t m_lastDoDelay;  // Requested delay of last program 'do'
+    LightProgram* (*m_programCreator)(uint8_t programIndex);
+    LightProgram* m_program;
 };
 
 #endif  // INCLUDE_G35_PROGRAM_RUNNER_H

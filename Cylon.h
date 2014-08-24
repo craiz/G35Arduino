@@ -14,15 +14,15 @@
 #include <LightProgram.h>
 #include <Orbiter.h>
 
-class Cylon : public LightProgram {
- public:
-  Cylon(G35& g35);
+class Cylon : public LightProgram
+{
+public:
+    Cylon(G35& g35);
+    uint32_t Do();
 
-  uint32_t Do();
-
- private:
-  Orbiter orbiter_;
-  uint8_t last_x_;
+private:
+    Orbiter orbiter_;
+    uint8_t last_x_;
 };
 
 #endif  // INCLUDE_G35_PROGRAMS_CYLON_H
