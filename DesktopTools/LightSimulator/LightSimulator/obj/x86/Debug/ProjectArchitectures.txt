@@ -1,2 +1,0 @@
-C:\ChristmasLights\Working\LightSimulator\ColorNodeSimulator\ColorNodeSimulator.vcxproj;x86
-C:\ChristmasLights\Working\LightSimulator\LightSimulator\LightSimulator.csproj;x86
