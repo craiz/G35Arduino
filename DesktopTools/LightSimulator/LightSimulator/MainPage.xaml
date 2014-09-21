@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="LightSimulator.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightSimulator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="LightBulbTemplate">
+            <Ellipse Height="25" Width="25" Fill="{Binding Path=BulbBrush}" Margin="-5,-5,-5,-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid Background="#FF1D1D1D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Black">
+            <Button x:Name="UpdateButton" Content="Update" Click="UpdateButton_Click" />
+            <Button x:Name="KickButton" Content="Kick" Click="KickButton_Click" />
+            <Button x:Name="DripFillButton" Content="DripFill" Click="DripFillButton_Click" />
+            <Button x:Name="DissolveButton" Content="Dissolve" Click="DissolveButton_Click" />
+            <Button x:Name="ShootingStarsButton" Content="ShootingStars" Click="ShootingStarsButton_Click" />
+            <Button x:Name="WaveButton" Content="Wave" Click="WaveButton_Click" />
+            <Button x:Name="RandomStrobeButton" Content="RandomStrobe" Click="RandomStrobeButton_Click" />
+            <Button x:Name="SolidButton" Content="Solid" Click="SolidButton_Click" />
+            <Button x:Name="AlternateDirectionButton" Content="AlternateDirection" Click="AlternateDirectionButton_Click" />
+            <Button x:Name="FadeSolidButton" Content="FadeSolid" Click="FadeSolidButton_Click" />
+            <Button x:Name="ForwardWaveButton" Content="ForwardWave" Click="ForwardWaveButton_Click" />
+        </StackPanel>
+        
+        <ListBox x:Name="LightBulbs" Grid.Row="1" ItemTemplate="{StaticResource LightBulbTemplate}" Background="{x:Null}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="LightsLeft" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" ItemTemplate="{StaticResource LightBulbTemplate}" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <ListBox x:Name="LightsRight" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemTemplate="{StaticResource LightBulbTemplate}" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <ListBox x:Name="LightsTop" Grid.Row="0" Grid.Column="1" ItemTemplate="{StaticResource LightBulbTemplate}" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <ListBox x:Name="LightsBottom" Grid.Row="2" Grid.Column="1" ItemTemplate="{StaticResource LightBulbTemplate}" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Page>
