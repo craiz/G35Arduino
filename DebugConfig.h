@@ -3,7 +3,7 @@
 
 #include <SerialPrintf.h>
 
-// Override which can be used to disabled all zones
+// Override which can be used to disable all zones
 #define DEBUG_MASTER                        1
 
 #define DEBUG_CONTROLLER                    (1 && DEBUG_MASTER)
@@ -44,7 +44,9 @@
 #define DEBUG_LIGHT_PROGRAM_REDGREENCHASE   (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_RANDOM_FADE     (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_SHOOTING_STARS  (0 && DEBUG_MASTER)
+#define DEBUG_LIGHT_PROGRAM_SNOWFLAKE       (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_SOLID           (0 && DEBUG_MASTER)
+#define DEBUG_LIGHT_PROGRAM_SPOOKY_EYES     (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_SPOOKYFLICKER   (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_SPOOKYSLOW      (0 && DEBUG_MASTER)
 #define DEBUG_LIGHT_PROGRAM_STAR            (0 && DEBUG_MASTER)

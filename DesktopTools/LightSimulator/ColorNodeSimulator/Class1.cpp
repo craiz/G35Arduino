@@ -22,7 +22,7 @@ bool Class1::Configure(uint16 lightCount)
     m_Count = lightCount;
     m_pG35StringSimulator = new G35String();
     //m_pG35StringSimulator = new G35StringWindowSmall();
-    m_pG35StringSimulator->Configure(0, m_Count, m_Count, 0, true, STRING_LAYOUT_LINEAR);
+    m_pG35StringSimulator->Configure(0, m_Count, m_Count, true, STRING_LAYOUT_LINEAR);
     //m_pG35StringSimulator->set_layout(STRING_LAYOUT::STRING_LAYOUT_VERTICAL_LINES);
     return true;
 }
@@ -103,9 +103,9 @@ bool Class1::SetLightProgram(LightProgramType program, unsigned char pattern, un
             m_pProgram = new AlternateDirectionalWave(*m_pG35StringSimulator);
             break;
         }
-    case LightProgramType::FadeInFadeOutSolidColors:
+    case LightProgramType::FadeInFadeOutSingleColors:
         {
-            m_pProgram = new FadeInFadeOutSolidColors(*m_pG35StringSimulator);
+            m_pProgram = new FadeInFadeOutSingleColors(*m_pG35StringSimulator);
             break;
         }
     case LightProgramType::ForwardWave:
@@ -113,6 +113,12 @@ bool Class1::SetLightProgram(LightProgramType program, unsigned char pattern, un
             m_pProgram = new ForwardWave(*m_pG35StringSimulator);
             break;
         }
+	case LightProgramType::SpookyEyes:
+		{
+            m_pG35StringSimulator->set_light_count(7);
+			m_pProgram = new SpookyEyes(*m_pG35StringSimulator);
+            //m_pProgram = new Snowflake(*m_pG35StringSimulator);
+		}
     }
 
     if (m_pProgram == NULL)

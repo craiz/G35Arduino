@@ -19,6 +19,8 @@
 #include <ColorNodeCommands.h>
 #include <Solid.h>
 #include <StockPrograms.h>
+#include <SpookyEyes.h>
+#include <Snowflake.h>
 
 namespace ColorNodeSimulator
 {
@@ -31,8 +33,9 @@ namespace ColorNodeSimulator
         RandomStrobe = 4,
         Solid = 5,
         AlternateDirection = 6,
-        FadeInFadeOutSolidColors = 7,
+        FadeInFadeOutSingleColors = 7,
         ForwardWave = 8,
+		SpookyEyes = 9,
     };
 
 

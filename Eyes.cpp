@@ -29,11 +29,11 @@ Eyes::Eyes(G35& g35) :
     DebugPrintf("Eyes\n");
 }
 
-bool Eyes::Initialize(uint8_t pattern, uint8_t option, delay_t delay)
+bool Eyes::Initialize(pattern_t pattern, option_t option, delay_t delay)
 {
     LightProgram::Initialize(pattern, option, delay);
 
-    g35_.fill_color(0, light_count_, 255, COLOR_BLACK);
+    g35_.fill_color(0, light_count_, G35::MAX_INTENSITY, COLOR_BLACK);
     
     if (3 * eye_count_ >= light_count_)
     {
