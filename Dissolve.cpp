@@ -229,8 +229,6 @@ void Dissolve::SequentializeBulbs()
     }
 }
 
-bool fOneDirection = false;
-
 uint32_t Dissolve::Do()
 {
     light_count_t finishedCount = 0;

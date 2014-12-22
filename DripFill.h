@@ -78,7 +78,7 @@ class DripFill : public LightProgram
 {
 public:
     DripFill(G35& g35, ProgramCommand *pCommand);
-    bool Initialize(pattern_t pattern, uint8_t option, delay_t delay);
+    bool Initialize(pattern_t pattern, option_t option, delay_t delay);
     uint32_t Do();
 
 private:

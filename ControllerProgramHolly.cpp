@@ -262,6 +262,59 @@ bool ControllerProgramHolly::Initialize(pattern_t pattern, option_t option, dela
     bulb_data[46] = encodedGreen;
     SendCommand();
 
+    // Snowflake Big
+    DebugPrintf("Configuring snowflake big\n");
+    payloadSize = sizeof(RawCommand) + 49;
+    rawCommand->command.address = STRING_ID_SNOWFLAKE;
+    rawCommand->command.option = COMMAND_OPTION_DEFER;
+    rawCommand->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
+    rawCommand->start_bulb = 0;
+    rawCommand->end_bulb = 48;
+    memset(bulb_data, encodedWhite, 49);
+    bulb_data[0] = encodedRed;
+    bulb_data[1] = encodedGreen;
+    bulb_data[9] = encodedGreen;
+    bulb_data[17] = encodedGreen;
+    bulb_data[25] = encodedGreen;
+    bulb_data[33] = encodedGreen;
+    bulb_data[41] = encodedGreen;
+
+    bulb_data[5] = encodedGreen;
+    bulb_data[6] = encodedRed;
+    bulb_data[7] = encodedGreen;
+    bulb_data[8] = encodedRed;
+
+    bulb_data[13] = encodedGreen;
+    bulb_data[14] = encodedRed;
+    bulb_data[15] = encodedGreen;
+    bulb_data[16] = encodedRed;
+
+    bulb_data[21] = encodedGreen;
+    bulb_data[22] = encodedRed;
+    bulb_data[23] = encodedGreen;
+    bulb_data[24] = encodedRed;
+
+    bulb_data[29] = encodedGreen;
+    bulb_data[30] = encodedRed;
+    bulb_data[31] = encodedGreen;
+    bulb_data[32] = encodedRed;
+    
+    bulb_data[37] = encodedGreen;
+    bulb_data[38] = encodedRed;
+    bulb_data[39] = encodedGreen;
+    bulb_data[40] = encodedRed;
+    
+    bulb_data[45] = encodedGreen;
+    bulb_data[46] = encodedRed;
+    bulb_data[47] = encodedGreen;
+    bulb_data[48] = encodedRed;
+
+    SendCommand();    
+
+    // TODO: Fix snowflake grouping.
+    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
+    SendCommand();
+
     // Yard
     // Slow christmas sequence chase
     DebugPrintf("Configuring yard\n");
@@ -269,7 +322,7 @@ bool ControllerProgramHolly::Initialize(pattern_t pattern, option_t option, dela
     payloadSize = sizeof(ProgramCommand);
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type = COMMAND_PROGRAM;
-    pProgram->command.address = STRING_GROUP_A_YARD;
+    pProgram->command.address = STRING_GROUP_A_YARD | STRING_GROUP_A_BUSHES;
     pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->option = PROGRAM_OPTION_IMMEDIATE | PROGRAM_OPTION_FORWARD;

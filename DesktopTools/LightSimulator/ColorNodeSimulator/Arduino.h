@@ -12,7 +12,7 @@ typedef char int8_t;
 typedef unsigned short uint16_t;
 typedef short int16_t;
 typedef unsigned uint32_t;
-typedef float gradient_t;
+//typedef float gradient_t;
 
 // Random stuff
 #define OUTPUT 0

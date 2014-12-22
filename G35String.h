@@ -30,19 +30,28 @@ typedef enum
     STRING_LAYOUT_STAR_RINGS                =  9,
     STRING_LAYOUT_STAR_BLADES               = 10,
     STRING_LAYOUT_STAR_WINGS                = 11,
-    STRING_LAYOUT_STAR_SIDES                = 12,
+    STRING_LAYOUT_STAR_EDGES                = 12,
     STRING_LAYOUT_STAR_LINES                = 13,
 
-    // Snowflake Modes
-    STRING_LAYOUT_SNOWFLAKE_RINGS           = 14,
-    STRING_LAYOUT_SNOWFLAKE_BLADES          = 15,
-    STRING_LAYOUT_SNOWFLAKE_LINES           = 16,
+    // Unused
+    UNUSED_14 = 14,
+    UNUSED_15 = 15,
+    UNUSED_16 = 16,
 
     // Tree Top Modes
     STRING_LAYOUT_TREE_TOP_DOWN_LEFT_TO_RIGHT = 17,
     STRING_LAYOUT_TREE_TOP_UP_LEFT_TO_RIGHT   = 18,
     STRING_LAYOUT_TREE_TOP_DOWN_RIGHT_TO_LEFT = 19,
     STRING_LAYOUT_TREE_TOP_UP_RIGHT_TO_LEFT   = 20,
+
+
+    // Snowflake Modes
+    STRING_LAYOUT_SNOWFLAKE_LINEAR_CLOCKWISE        = 21,
+    STRING_LAYOUT_SNOWFLAKE_LINEAR_COUNTERCLOCKWISE = 22,
+    STRING_LAYOUT_SNOWFLAKE_RINGS                   = 23,
+    STRING_LAYOUT_SNOWFLAKE_BLADES                  = 24,
+    STRING_LAYOUT_SNOWFLAKE_LINES                   = 25,
+    STRING_LAYOUT_SNOWFLAKE_REDUCED                 = 26,
 
     STRING_LAYOUT_COUNT
 } STRING_LAYOUT;
@@ -85,8 +94,9 @@ class G35String : public G35 {
   // debugging.
   void do_test_patterns();
 
- protected:
   virtual uint8_t get_broadcast_bulb() { return BROADCAST_BULB; }
+
+ protected:
 
   STRING_LAYOUT layout_;
 

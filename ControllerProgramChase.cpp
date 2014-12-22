@@ -66,11 +66,11 @@ bool ControllerProgramChase::Initialize(pattern_t pattern, option_t option, dela
     pProgram->option = PROGRAM_OPTION_INCREMENTAL | PROGRAM_OPTION_FORWARD;
     SendCommand();
 
-    // Star goes forward using rings layout
+    // Star and snowflakes goes forward using rings layout
     pProgram->command.type = COMMAND_PROGRAM;
-    pProgram->command.address = STRING_ID_STAR;
-    pProgram->command.option = COMMAND_OPTION_DEFER;
-    pProgram->command.layout = STRING_LAYOUT_STAR_RINGS;
+    pProgram->command.address = STRING_GROUP_A_PROP;
+    pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
+    pProgram->command.layout = STRING_LAYOUT_RINGS_CENTER;
     pProgram->delay = 200;
     pProgram->option = PROGRAM_OPTION_INCREMENTAL | PROGRAM_OPTION_FORWARD;
     SendCommand();

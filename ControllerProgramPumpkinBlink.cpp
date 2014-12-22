@@ -17,7 +17,7 @@
 #include <G35String.h>
 
 
-#define PUMPKIN_BULB_COUNT 11
+#define PUMPKIN_BULB_COUNT 19
 
 #define COLOR_INDEX_WHITE 0
 #define COLOR_INDEX_BLACK 1
@@ -92,7 +92,7 @@ uint32_t ControllerProgramPumpkinBlink::Do()
 
     memset(bulb_data, encodedOrange, PUMPKIN_BULB_COUNT);
 
-    switch (rand() % 3)
+    switch (rand() % 5)
     {
     case 0: // Pumpkin 1
         bulb_data[0] = encodedWhite;
@@ -100,18 +100,32 @@ uint32_t ControllerProgramPumpkinBlink::Do()
         bulb_data[2] = encodedWhite;
         bulb_data[3] = encodedWhite;
         bulb_data[4] = encodedWhite;
-        break;
-
-    case 1: // Pumpkin 2
         bulb_data[5] = encodedWhite;
         bulb_data[6] = encodedWhite;
         bulb_data[7] = encodedWhite;
+        break;
+
+    case 1: // Pumpkin 2
         bulb_data[8] = encodedWhite;
-        bulb_data[9] = encodedWhite;
         break;
 
     case 2: // Pumpkin 3
+        bulb_data[9] = encodedWhite;
+        break;
+
+    case 3: // Pumpkin 4
         bulb_data[10] = encodedWhite;
+        bulb_data[11] = encodedWhite;
+        bulb_data[12] = encodedWhite;
+        bulb_data[13] = encodedWhite;
+        bulb_data[14] = encodedWhite;
+        bulb_data[15] = encodedWhite;
+        bulb_data[16] = encodedWhite;
+        bulb_data[17] = encodedWhite;
+        break;
+
+    case 4: // Pumpkin 5
+        bulb_data[18] = encodedWhite;
         break;
     }
 

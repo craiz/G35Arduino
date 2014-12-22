@@ -60,14 +60,20 @@
 #include <Wave.h>
 #include <StrobeFill.h>
 #include <ShootingStars.h>
+#include <SpookyEyes.h>
 #include <Dissolve.h>
 #include <DripFill.h>
+#include <Snowflake.h>
 #include <Test.h>
 
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 //*********************************************************************
 
+//#define NODE_VERSION 1
+
+
+// LED Pin v1=19 v1.1 = 17
 #define OUT_PIN 19  //Arduino pin #
 
 #define PHYSICAL_LIGHT_COUNT_DEFAULT    50
@@ -95,23 +101,23 @@ void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 #define FREQ RF12_433MHZ
 
-
 //*********************************************************************
 // Define how the string is configured.  This allows for different layouts.
 
 #define STRING_TYPE_LINEAR          0
 #define STRING_TYPE_STAR            1
-#define STRING_TYPE_SNOWFLAKE       2
-#define STRING_TYPE_WINDOW_SMALL    3
-#define STRING_TYPE_WINDOW_BIG      4
-#define STRING_TYPE_GARAGE_SMALL    5
-#define STRING_TYPE_GARAGE_BIG      6
-#define STRING_TYPE_FRONT_DOOR      7
-#define STRING_TYPE_TREE_TOP        8
+#define STRING_TYPE_SNOWFLAKE_BIG   2
+#define STRING_TYPE_SNOWFLAKE_SMALL 3
+#define STRING_TYPE_WINDOW_SMALL    4
+#define STRING_TYPE_WINDOW_BIG      5
+#define STRING_TYPE_GARAGE_SMALL    6
+#define STRING_TYPE_GARAGE_BIG      7
+#define STRING_TYPE_FRONT_DOOR      8
+#define STRING_TYPE_TREE_TOP        9
 
 
 // Change this to define the string configuration.
-#define STRING_TYPE     STRING_TYPE_LINEAR
+#define STRING_TYPE     STRING_TYPE_STAR
 
 #if (STRING_TYPE == STRING_TYPE_LINEAR)
 
@@ -122,10 +128,15 @@ G35String lights;
 #include <G35StringStar.h>
 G35StringStar lights;
 
-#elif (STRING_TYPE == STRING_TYPE_SNOWFLAKE)
+#elif (STRING_TYPE == STRING_TYPE_SNOWFLAKE_BIG)
 
-#include <G35StringSnowFlake.h>
-G35StringSnowflake lights;
+#include <G35StringSnowFlakeBig.h>
+G35StringSnowflakeBig lights;
+
+#elif (STRING_TYPE == STRING_TYPE_SNOWFLAKE_SMALL)
+
+#include <G35StringSnowFlakeSmall.h>
+G35StringSnowflakeSmall lights;
 
 #elif (STRING_TYPE == STRING_TYPE_WINDOW_SMALL)
 
@@ -163,7 +174,7 @@ uint8_t myRFNodeID = INVALID_CONFIG_VALUE;
 uint8_t myRFControllerID = INVALID_CONFIG_VALUE;
 uint8_t myRFGroupID = INVALID_CONFIG_VALUE;
 uint8_t myStringID = INVALID_CONFIG_VALUE;
-uint8_t myStringGroups[4] = {INVALID_CONFIG_VALUE};
+uint8_t myStringGroups[STRING_GROUP_COUNT] = {INVALID_CONFIG_VALUE};
 uint8_t myPhysicalLightCount = INVALID_CONFIG_VALUE;
 uint8_t myLogicalLightCount = INVALID_CONFIG_VALUE;
 uint8_t myEnumerationDirection = ENUMERATION_DIRECTION_DEFAULT;
@@ -228,8 +239,8 @@ LightProgram* CreateProgram(uint8_t programIndex)
     case COLOR_NODE_PROGRAM_RAW:
         return new RawProgram(lights, (RawCommand *)activeCommandBuffer);
 
-    case COLOR_NODE_PROGRAM_RANDOM_FADE:
-        return new RandomFade(lights, (ProgramCommand *)activeCommandBuffer);
+    //case COLOR_NODE_PROGRAM_RANDOM_FADE:
+        //return new RandomFade(lights, (ProgramCommand *)activeCommandBuffer);
 
     case COLOR_NODE_PROGRAM_CHASE:
         return new Chase(lights, (ProgramCommand *)activeCommandBuffer);
@@ -244,10 +255,10 @@ LightProgram* CreateProgram(uint8_t programIndex)
         return new StrobeFill(lights, (ProgramCommand *)activeCommandBuffer);
 
     case COLOR_NODE_PROGRAM_SHOOTING_STARS:
-        //return new ShootingStars(lights, (ProgramCommand *)activeCommandBuffer);
+        return new ShootingStars(lights, (ProgramCommand *)activeCommandBuffer);
 
     case COLOR_NODE_PROGRAM_DISSOLVE:
-        //return new Dissolve(lights, (ProgramCommand *)activeCommandBuffer);
+        return new Dissolve(lights, (ProgramCommand *)activeCommandBuffer);
 
     case COLOR_NODE_PROGRAM_DRIP_FILL:
         return new DripFill(lights, (ProgramCommand *)activeCommandBuffer);
@@ -650,6 +661,37 @@ void loop()
             }
             break;
         }
+        /*
+        case COMMAND_QUERY:
+        {
+            if (!commandSetup)
+            {
+                DebugPrintf("Command: Query\n");
+
+
+                QueryResponse response = {0};
+                response.command.type = COMMAND_QUERY_RESPONSE;
+
+                response.version = NODE_VERSION;
+                response.string_id = myStringID;
+                memset(&response.string_groups, myStringGroups, STRING_GROUP_COUNT);
+
+
+                response.rf_node = myRFNodeID
+                response.rf_group = myRFGroupID;
+                response.rf_controller = myRFControllerID
+                response.physicalCount = myPhysicalLightCount;
+                response.logicalCount = myLogicalLightCount;
+                response.enumerationDirection = myEnumerationDirection;
+                response.enumerationDelay = myEnumerationDelay;
+
+                rf12_sendStart(RF12_HDR_CTL | RF12_HDR_DST | (myRFControllerID & RF12_HDR_MASK), &myStringID, sizeof(myStringID));
+                rf12_sendWait(0);
+                
+                commandSetup = true;
+            }
+        }
+        */
     }
 }
 //*********************************************************************

@@ -70,7 +70,7 @@ uint32_t LightProgram::Do()
 }
 
 // Default implementation updates settings.
-void LightProgram::Update(pattern_t pattern, uint8_t option, delay_t delay)
+void LightProgram::Update(pattern_t pattern, option_t option, delay_t delay)
 {
     LightProgram::Initialize(pattern, option, delay);
 }

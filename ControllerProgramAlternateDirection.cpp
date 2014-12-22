@@ -33,10 +33,21 @@ byte starLayouts[] = {
         STRING_LAYOUT_STAR_BLADES,
         STRING_LAYOUT_STAR_LINES,
         STRING_LAYOUT_STAR_RINGS,
-        STRING_LAYOUT_STAR_SIDES,
+        STRING_LAYOUT_STAR_EDGES,
         STRING_LAYOUT_STAR_WINGS
         };
 byte currentStarLayout = 0;
+
+
+byte snowflakeLayouts[] = {
+        STRING_LAYOUT_LINEAR,
+        STRING_LAYOUT_SIDES,
+        STRING_LAYOUT_HORIZONTAL_LINES,
+        STRING_LAYOUT_HORIZONTAL_LINES_CENTER,
+        STRING_LAYOUT_RINGS_CENTER
+        };
+byte currentSnowflakeLayout = 0;
+
 
 ControllerProgramAlternateDirection::ControllerProgramAlternateDirection(G35& g35)
   : LightProgram(g35)
@@ -51,16 +62,17 @@ bool ControllerProgramAlternateDirection::Initialize(pattern_t pattern, option_t
     // pick next layouts;
     currentMainLayout = (currentMainLayout + 1) % ARRAYSIZE(mainLayouts);
     currentStarLayout = (currentStarLayout + 1) % ARRAYSIZE(starLayouts);
+    currentSnowflakeLayout = (currentSnowflakeLayout + 1) % ARRAYSIZE(snowflakeLayouts);
 
     uint16_t seed = rand();
     ProgramCommand* pProgram = (ProgramCommand *)payloadData;
     payloadSize = sizeof(ProgramCommand);
 
-    // Roof, Tree, Yard:
+    // Roof, Tree, Yard, Bushes:
     // Always linear layout
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type = COMMAND_PROGRAM;
-    pProgram->command.address = STRING_GROUP_A_ROOF | STRING_GROUP_A_TREE | STRING_GROUP_A_YARD;
+    pProgram->command.address = STRING_GROUP_A_ROOF | STRING_GROUP_A_TREE | STRING_GROUP_A_YARD | STRING_GROUP_A_BUSHES;
     pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->command.seed = seed;
@@ -103,6 +115,22 @@ bool ControllerProgramAlternateDirection::Initialize(pattern_t pattern, option_t
     pProgram->delay = DELAY_DEFAULT;
     pProgram->option = PROGRAM_OPTION_WAIT;
     pProgram->program = COLOR_NODE_PROGRAM_ALTERNATE_DIRECTION_WAVE;
+    SendCommand();
+
+    // Snowflake:
+    memset(pProgram, 0, sizeof(ProgramCommand));
+    pProgram->command.type = COMMAND_PROGRAM;
+    pProgram->command.address = STRING_ID_SNOWFLAKE;
+    pProgram->command.option = COMMAND_OPTION_DEFER;
+    pProgram->command.layout = snowflakeLayouts[currentSnowflakeLayout];
+    pProgram->command.seed = seed;
+    pProgram->delay = DELAY_DEFAULT;
+    pProgram->option = PROGRAM_OPTION_WAIT;
+    pProgram->program = COLOR_NODE_PROGRAM_ALTERNATE_DIRECTION_WAVE;
+    SendCommand();
+
+    // TODO: Fix snowflake grouping.
+    pProgram->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     // Send commit command to apply all the commands.

@@ -35,13 +35,14 @@ bool ControllerProgramDissolve::Initialize(pattern_t pattern, option_t option, d
     pProgram->command.type = COMMAND_PROGRAM;
     pProgram->command.address = STRING_GROUP_ALL;
     pProgram->command.option = COMMAND_OPTION_GROUP_A;
+    pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->delay = 5;
     pProgram->program = COLOR_NODE_PROGRAM_SWITCH_OFF;
     pProgram->pattern = 1; // Soft Off
 
     SendCommand();
 
-    sleep(1000);
+    sleep(900);
 
     // Setup colors for first dissolve in from black.
     m_Color1 = WAVE_COLOR_BLACK;

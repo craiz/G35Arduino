@@ -135,10 +135,21 @@ uint8_t SetupControllerSequence(ProgramCommand* pProgram, pattern_t pattern)
         colors[1] = COLOR_YELLOW;
         break;
 
-    case SEQUENCE_PATTERN_SEAHAWKS:
-        pProgram->pattern = SEQUENCE_PATTERN_SEAHAWKS;
+    // TODO: Fix this!
+    case SEQUENCE_PATTERN_SEAHAWKS_LONG:
+        pProgram->pattern = SEQUENCE_PATTERN_SEAHAWKS_LONG;
     
         extraData[0] = 5;
+        extraData[1] = 2;
+    
+        colors[0] = COLOR_BLUE;
+        colors[1] = COLOR_GREEN;
+        break;
+
+    case SEQUENCE_PATTERN_SEAHAWKS_SHORT:
+        pProgram->pattern = SEQUENCE_PATTERN_SEAHAWKS_SHORT;
+    
+        extraData[0] = 2;
         extraData[1] = 2;
     
         colors[0] = COLOR_BLUE;

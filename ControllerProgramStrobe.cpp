@@ -39,13 +39,14 @@ bool ControllerProgramStrobe::Initialize(pattern_t pattern, uint8_t option, dela
     pProgram->command.type = COMMAND_PROGRAM;
     pProgram->command.address = STRING_GROUP_ALL;
     pProgram->command.option = COMMAND_OPTION_GROUP_A;
+    pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->delay = 5;
     pProgram->program = COLOR_NODE_PROGRAM_SWITCH_OFF;
     pProgram->pattern = 1; // Soft Off
 
-    SendCommand(SEND_COMMAND_RETRIES_DEFAULT * 2, SEND_COMMAND_RETRY_DELAY_DEFAULT);
+    SendCommand();
 
-    sleep(1000);
+    sleep(900);
 
 #if CURRENT_CONTROLLER_CONFIGURATION == CHRISTMAS
 
@@ -85,23 +86,15 @@ bool ControllerProgramStrobe::Initialize(pattern_t pattern, uint8_t option, dela
 
     payloadSize += 6;
 
-    // Doors, windows and do horizontal lines backward (top to bottom)
-    pProgram->command.address = STRING_GROUP_A_WINDOW | STRING_GROUP_A_DOOR | STRING_GROUP_A_MISC;
+    // Doors and windows do horizontal lines backward (top to bottom)
+    pProgram->command.address = STRING_GROUP_A_WINDOW | STRING_GROUP_A_DOOR | STRING_GROUP_A_PROP;
     pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     pProgram->command.layout = STRING_LAYOUT_HORIZONTAL_LINES;
     pProgram->option = PROGRAM_OPTION_INCREMENTAL | PROGRAM_OPTION_BACKWARD;
     SendCommand();
 
-    // Star does horizontal lines forward (top to bottom)
-    // TODO: PAUL: Fix Star horizontal lines to be bottom up like all other strings layouts
-    pProgram->command.address = STRING_ID_STAR;
-    pProgram->command.option = COMMAND_OPTION_DEFER;
-    pProgram->command.layout = STRING_LAYOUT_HORIZONTAL_LINES;
-    pProgram->option = PROGRAM_OPTION_INCREMENTAL | PROGRAM_OPTION_FORWARD;
-    SendCommand();
-
-    // Tree, roof and yard do linear forward.
-    pProgram->command.address = STRING_GROUP_A_TREE | STRING_GROUP_A_ROOF | STRING_GROUP_A_YARD;
+    // Tree, roof, yard and bushes do linear forward.
+    pProgram->command.address = STRING_GROUP_A_TREE | STRING_GROUP_A_ROOF | STRING_GROUP_A_YARD | STRING_GROUP_A_BUSHES;
     pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->option = PROGRAM_OPTION_INCREMENTAL | PROGRAM_OPTION_FORWARD;

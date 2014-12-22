@@ -29,8 +29,10 @@ class G35StringGroup : public G35 {
   virtual void set_color(light_count_t bulb, uint8_t intensity, color_t color);
   virtual void broadcast_intensity(uint8_t intensity);
 
- protected:
   virtual light_count_t get_broadcast_bulb();
+
+protected:
+
 
  private:
   enum { MAX_STRINGS = 16 };

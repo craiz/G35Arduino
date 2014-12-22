@@ -5,5 +5,6 @@
 
 char rf12_easyPoll(void);
 char rf12_easySend(const void* data, uint8_t size);
+void rf12_easyConfig(uint8_t retries, uint16_t delay);
 
 #endif // _RF12_H_

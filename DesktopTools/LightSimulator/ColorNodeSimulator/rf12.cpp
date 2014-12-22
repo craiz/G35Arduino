@@ -10,3 +10,8 @@ char rf12_easySend(const void* data, uint8_t size)
 {
 	return 0;
 }
+
+void rf12_easyConfig(uint8_t retries, uint16_t delay)
+{
+	return;
+}

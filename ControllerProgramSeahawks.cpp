@@ -30,6 +30,9 @@ ControllerProgramSeahawks::ControllerProgramSeahawks(G35& g35)
 
 bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, delay_t delay)
 {
+    uint8_t extraDataSize;
+    ProgramCommand* pProgram;
+
     // setup colors
     COLOR_INFO colorInfo;
     byte encodedBlue;
@@ -57,10 +60,10 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     rawCommand->bulb_delay = 30;
     rawCommand->intensity = G35::MAX_INTENSITY;
 
-    // Green: Windows, Star
+    // Green: Windows, Star, bushes
     DebugPrintf("Configuring Green\n");
     payloadSize = sizeof(RawCommand) + 50;
-    rawCommand->command.address = STRING_GROUP_A_WINDOW | STRING_GROUP_A_MISC;
+    rawCommand->command.address = STRING_GROUP_A_WINDOW | STRING_GROUP_A_PROP | STRING_GROUP_A_BUSHES;
     rawCommand->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     rawCommand->start_bulb = 0;
     rawCommand->end_bulb = 49;
@@ -72,7 +75,7 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     rawCommand->command.address = STRING_ID_TREE_TOP;
     rawCommand->command.option = COMMAND_OPTION_DEFER;
     rawCommand->start_bulb = 0;
-    rawCommand->end_bulb = 34;
+    rawCommand->end_bulb = 35;
     memset(bulb_data, encodedGreen, 35);
     SendCommand();
 
@@ -84,6 +87,53 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     rawCommand->start_bulb = 0;
     rawCommand->end_bulb = 49;
     memset(bulb_data, encodedBlue, 50);
+    SendCommand();
+
+    // Blue and Green: Snowflake
+    DebugPrintf("Configuring Snowflake Blue and Green\n");
+    payloadSize = sizeof(RawCommand) + 49;
+    rawCommand->command.address = STRING_ID_SNOWFLAKE;
+    rawCommand->command.option = COMMAND_OPTION_DEFER;
+    rawCommand->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
+    rawCommand->start_bulb = 0;
+    rawCommand->end_bulb = 48;
+    memset(bulb_data, encodedBlue, 49);
+
+    bulb_data[0] = encodedGreen;
+    
+    bulb_data[5] = encodedGreen;
+    bulb_data[6] = encodedGreen;
+    bulb_data[7] = encodedGreen;
+    bulb_data[8] = encodedGreen;
+
+    bulb_data[13] = encodedGreen;
+    bulb_data[14] = encodedGreen;
+    bulb_data[15] = encodedGreen;
+    bulb_data[16] = encodedGreen;
+
+    bulb_data[21] = encodedGreen;
+    bulb_data[22] = encodedGreen;
+    bulb_data[23] = encodedGreen;
+    bulb_data[24] = encodedGreen;
+
+    bulb_data[29] = encodedGreen;
+    bulb_data[30] = encodedGreen;
+    bulb_data[31] = encodedGreen;
+    bulb_data[32] = encodedGreen;
+    
+    bulb_data[37] = encodedGreen;
+    bulb_data[38] = encodedGreen;
+    bulb_data[39] = encodedGreen;
+    bulb_data[40] = encodedGreen;
+    
+    bulb_data[45] = encodedGreen;
+    bulb_data[46] = encodedGreen;
+    bulb_data[47] = encodedGreen;
+    bulb_data[48] = encodedGreen;
+    SendCommand();
+
+    // TODO: Fix snowflake grouping.
+    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     uint8_t twelveBase = 2;
@@ -168,7 +218,7 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
 
     // Blue/Green Chase: Roof, Yard
     DebugPrintf("Configuring Blue/Green Chase\n");
-    ProgramCommand* pProgram = (ProgramCommand *)payloadData;
+    pProgram = (ProgramCommand *)payloadData;
     payloadSize = sizeof(ProgramCommand);
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type = COMMAND_PROGRAM;
@@ -180,7 +230,7 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     pProgram->delay = 500;
 
     // Set up the extra data needed for the chase program.
-    uint8_t extraDataSize = SetupControllerSequence(pProgram, SEQUENCE_PATTERN_SEAHAWKS);
+    extraDataSize = SetupControllerSequence(pProgram, SEQUENCE_PATTERN_SEAHAWKS_LONG);
     payloadSize += extraDataSize;
 
     SendCommand();

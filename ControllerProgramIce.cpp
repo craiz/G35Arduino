@@ -147,7 +147,43 @@ bool ControllerProgramIce::Initialize(pattern_t pattern, option_t option, delay_
     bulb_data[45] = encodedWhite;
     SendCommand();
 
+    // Snowflake big is a blue/white wave
+    DebugPrintf("Configuring snowflake\n");
+    pProgram = (ProgramCommand *)payloadData;
+    memset(pProgram, 0, sizeof(ProgramCommand));
+    pProgram->command.type= COMMAND_PROGRAM;
+    pProgram->command.address = STRING_ID_SNOWFLAKE;
+    pProgram->command.option = COMMAND_OPTION_DEFER;
+    pProgram->command.layout = STRING_LAYOUT_HORIZONTAL_LINES_CENTER;
+    pProgram->delay = 50;
+    pProgram->pattern = 3; // number of colors
+    pProgram->option = 15 << 4; // ramp size
+    pProgram->option |= PROGRAM_OPTION_FIXED;
+    pProgram->program = COLOR_NODE_PROGRAM_WAVE;
+    
+    extraData = payloadData + sizeof(ProgramCommand);
+    extraData[0] = 0; // pixel count
+    extraData[1] = 0; // pixel distribution
+    extraData[2] = 1; // span size
+    colors = &extraData[3];
+    holds = colors + pProgram->pattern;
+    colors[0] = WAVE_COLOR_BLUE;
+    colors[1] = WAVE_COLOR_WHITE;
+    colors[2] = WAVE_COLOR_BLUE;
+    holds[0] = 15;
+    holds[1] = 1;
+    holds[2] = 10;
+
+    payloadSize = sizeof(ProgramCommand) + (pProgram->pattern * 2) + 3;
+
+    SendCommand();
+
+    // TODO: Fix snowflake grouping.
+    pProgram->command.address = STRING_ID_SNOWFLAKE_2;
+    SendCommand();
+
     // Roof line is a blue/white wave
+    DebugPrintf("Configuring roof\n");
     pProgram = (ProgramCommand *)payloadData;
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type= COMMAND_PROGRAM;
@@ -184,7 +220,7 @@ bool ControllerProgramIce::Initialize(pattern_t pattern, option_t option, delay_
     payloadSize = sizeof(ProgramCommand);
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type = COMMAND_PROGRAM;
-    pProgram->command.address = STRING_GROUP_A_YARD;
+    pProgram->command.address = STRING_GROUP_A_YARD | STRING_GROUP_A_BUSHES;
     pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_A;
     pProgram->command.layout = STRING_LAYOUT_LINEAR;
     pProgram->option = PROGRAM_OPTION_IMMEDIATE | PROGRAM_OPTION_FORWARD;

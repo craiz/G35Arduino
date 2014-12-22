@@ -28,9 +28,9 @@ bool ControllerProgramFadeInFadeOut::Initialize(pattern_t pattern, option_t opti
 {
     DebugPrintf("Initializing strings...\n");
     ProgramCommand* pProgram = (ProgramCommand *)payloadData;
-    payloadSize = sizeof(ProgramCommand);
 
     // First turn off all the lights
+    DebugPrintf("All off...\n");
     payloadSize = sizeof(ProgramCommand);
     memset(pProgram, 0, payloadSize);
     pProgram->command.type = COMMAND_PROGRAM;

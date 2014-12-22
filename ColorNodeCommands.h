@@ -28,6 +28,7 @@ typedef enum
     CONTROLLER_PROGRAM_SEAHAWKS                 = 16,
     CONTROLLER_PROGRAM_UW                       = 17,
     CONTROLLER_PROGRAM_DISSOLVE                 = 18,
+    CONTROLLER_PROGRAM_CROSSOVERWAVE            = 19,
 
     CONTROLLER_PROGRAM_COUNT
 } CONTROLLER_PROGRAMS;
@@ -63,6 +64,8 @@ typedef enum
 
     COLOR_NODE_PROGRAM_TEST                     = 22,
 
+    COLOR_NODE_PROGRAM_EYES                     = 23,
+
 
     COLOR_NODE_PROGRAM_COUNT
 } COLOR_NODE_PROGRAMS;
@@ -83,13 +86,13 @@ typedef enum
 
 typedef enum
 {
-    ADDRESSED_AS_NONE = 0,
-    ADDRESSED_AS_ID = 1,
-    ADDRESSED_AS_GROUP = 2,
+    ADDRESSED_AS_NONE   = 0,
+    ADDRESSED_AS_ID     = 1,
+    ADDRESSED_AS_GROUP  = 2,
 } ADDRESSED_AS;
 
 
-
+// String IDs.  Each string has a unique ID.
 #define STRING_ID_WINDOW_BONUS      1
 #define STRING_ID_WINDOW_LIVING     2
 #define STRING_ID_ROOF_GARAGE_LEFT  3
@@ -102,13 +105,12 @@ typedef enum
 #define STRING_ID_DOOR_FRONT        10
 #define STRING_ID_YARD_FRONT        11
 #define STRING_ID_YARD_SIDE         12
-#define STRING_ID_YARD_STRIP_FRONT  13
-#define STRING_ID_YARD_STRIP_SIDE   14
+#define STRING_ID_YARD_STRIP_FRONT  13 /* Not Used */
+#define STRING_ID_YARD_STRIP_SIDE   14 /* Not Used */
 #define STRING_ID_STAR              15
 #define STRING_ID_SNOWFLAKE         16
 
 #define STRING_ID_TREE_TOP          17
-
 #define STRING_ID_TREE_BASE         18
 #define STRING_ID_TREE_1            (STRING_ID_TREE_BASE + 0)   /* 18 */
 #define STRING_ID_TREE_2            (STRING_ID_TREE_BASE + 1)   /* 19 */
@@ -125,7 +127,10 @@ typedef enum
 #define STRING_ID_TREE_13           (STRING_ID_TREE_BASE + 12)  /* 30 */
 #define STRING_ID_TREE_14           (STRING_ID_TREE_BASE + 13)  /* 31 */
 
-#define STRING_ID_TREE_TRUNK        32
+#define STRING_ID_MINI_SNOWFLAKES   32
+#define STRING_ID_SNOWFLAKE_2       33 /* Programmed as 16 for 2014 */
+#define STRING_ID_ICICLES           34
+
 
 
 // Valid string group IDs are 1 - 16
@@ -135,62 +140,41 @@ typedef enum
 
 // String Group A
 // This group is intended to include all strings.
-#define STRING_GROUP_A_MISC_ID      1
-#define STRING_GROUP_A_WINDOW_ID    2
-#define STRING_GROUP_A_ROOF_ID      3
-#define STRING_GROUP_A_DOOR_ID      4
-#define STRING_GROUP_A_YARD_ID      5
-#define STRING_GROUP_A_TREE_ID      6
-
-#define STRING_GROUP_A_MISC         PACK_STRING_GROUP(STRING_GROUP_A_MISC_ID)
-#define STRING_GROUP_A_WINDOW       PACK_STRING_GROUP(STRING_GROUP_A_WINDOW_ID)
-#define STRING_GROUP_A_ROOF         PACK_STRING_GROUP(STRING_GROUP_A_ROOF_ID)
-#define STRING_GROUP_A_DOOR         PACK_STRING_GROUP(STRING_GROUP_A_DOOR_ID)
-#define STRING_GROUP_A_YARD         PACK_STRING_GROUP(STRING_GROUP_A_YARD_ID)
-#define STRING_GROUP_A_TREE         PACK_STRING_GROUP(STRING_GROUP_A_TREE_ID)
+#define STRING_GROUP_A_PROP         PACK_STRING_GROUP(1)
+#define STRING_GROUP_A_WINDOW       PACK_STRING_GROUP(2)
+#define STRING_GROUP_A_ROOF         PACK_STRING_GROUP(3)
+#define STRING_GROUP_A_DOOR         PACK_STRING_GROUP(4)
+#define STRING_GROUP_A_YARD         PACK_STRING_GROUP(5)
+#define STRING_GROUP_A_TREE         PACK_STRING_GROUP(6)
+#define STRING_GROUP_A_BUSHES       PACK_STRING_GROUP(7)
 
 // String Group B
 // This group contains all the strings of the mega tree.
-#define STRING_GROUP_B_TREE_ID_1    1
-#define STRING_GROUP_B_TREE_ID_2    2
-#define STRING_GROUP_B_TREE_ID_3    3
-#define STRING_GROUP_B_TREE_ID_4    4
-#define STRING_GROUP_B_TREE_ID_5    5
-#define STRING_GROUP_B_TREE_ID_6    6
-#define STRING_GROUP_B_TREE_ID_7    7
-#define STRING_GROUP_B_TREE_ID_8    8
-#define STRING_GROUP_B_TREE_ID_9    9
-#define STRING_GROUP_B_TREE_ID_10   10
-#define STRING_GROUP_B_TREE_ID_11   11
-#define STRING_GROUP_B_TREE_ID_12   12
-#define STRING_GROUP_B_TREE_ID_13   13
-#define STRING_GROUP_B_TREE_ID_14   14
-#define STRING_GROUP_B_TREE_ID_TOP  15
-#define STRING_GROUP_B_TREE_ID_TRUNK 16
-
-
-#define STRING_GROUP_B_TREE_1       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_1)
-#define STRING_GROUP_B_TREE_2       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_2)
-#define STRING_GROUP_B_TREE_3       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_3)
-#define STRING_GROUP_B_TREE_4       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_4)
-#define STRING_GROUP_B_TREE_5       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_5)
-#define STRING_GROUP_B_TREE_6       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_6)
-#define STRING_GROUP_B_TREE_7       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_7)
-#define STRING_GROUP_B_TREE_8       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_8)
-#define STRING_GROUP_B_TREE_9       PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_9)
-#define STRING_GROUP_B_TREE_10      PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_10)
-#define STRING_GROUP_B_TREE_11      PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_11)
-#define STRING_GROUP_B_TREE_12      PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_12)
-#define STRING_GROUP_B_TREE_13      PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_13)
-#define STRING_GROUP_B_TREE_14      PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_14)
-#define STRING_GROUP_B_TREE_TOP     PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_TOP)
-#define STRING_GROUP_B_TREE_TRUNK   PACK_STRING_GROUP(STRING_GROUP_B_TREE_ID_TRUNK)
+#define STRING_GROUP_B_TREE_1       PACK_STRING_GROUP(1)
+#define STRING_GROUP_B_TREE_2       PACK_STRING_GROUP(2)
+#define STRING_GROUP_B_TREE_3       PACK_STRING_GROUP(3)
+#define STRING_GROUP_B_TREE_4       PACK_STRING_GROUP(4)
+#define STRING_GROUP_B_TREE_5       PACK_STRING_GROUP(5)
+#define STRING_GROUP_B_TREE_6       PACK_STRING_GROUP(6)
+#define STRING_GROUP_B_TREE_7       PACK_STRING_GROUP(7)
+#define STRING_GROUP_B_TREE_8       PACK_STRING_GROUP(8)
+#define STRING_GROUP_B_TREE_9       PACK_STRING_GROUP(9)
+#define STRING_GROUP_B_TREE_10      PACK_STRING_GROUP(10)
+#define STRING_GROUP_B_TREE_11      PACK_STRING_GROUP(11)
+#define STRING_GROUP_B_TREE_12      PACK_STRING_GROUP(12)
+#define STRING_GROUP_B_TREE_13      PACK_STRING_GROUP(13)
+#define STRING_GROUP_B_TREE_14      PACK_STRING_GROUP(14)
+#define STRING_GROUP_B_TREE_TOP     PACK_STRING_GROUP(15)
+#define STRING_GROUP_B_TREE_TRUNK   PACK_STRING_GROUP(16)
 
 #define TREE_LEG_COUNT 14
 
 
 // String Group C
-// Unused
+// This group contains all snowflakes.
+#define STRING_GROUP_C_SNOWFLAKE_1  PACK_STRING_GROUP(1)
+#define STRING_GROUP_C_SNOWFLAKE_2  PACK_STRING_GROUP(2)
+
 
 // String Group D
 // Unused
@@ -271,6 +255,24 @@ typedef struct
     uint16_t enumerationDelay;  // ms to wait before enumerating bulbs
 } ConfigLightStringCommand;
 
+/*
+// size = 22 bytes
+typedef struct
+{
+    Command command;
+    uint8_t version;
+    uint8_t string_id;
+    uint8_t string_groups[STRING_GROUP_COUNT];
+    uint8_t rf_node;
+    uint8_t rf_group;
+    uint8_t rf_controller;
+    uint8_t physicalCount;
+    uint8_t logicalCount;
+    uint8_t enumerationDirection;
+    uint16_t enumerationDelay;
+} QueryResponse;
+*/
+
 typedef enum
 {
     COMMAND_OFF     = 0,
@@ -279,7 +281,9 @@ typedef enum
     COMMAND_COMMIT  = 3,
     COMMAND_KICK    = 4,
     COMMAND_ADDRESS_CONFIG = 5,
-    COMMAND_LIGHTSTRING_CONFIG   = 6
+    COMMAND_LIGHTSTRING_CONFIG = 6,
+    //COMMAND_QUERY   = 7,
+    //COMMAND_QUERY_RESPONSE = 8
 } COMMAND_TYPE;
 
 #define COMMAND_MIN COMMAND_OFF

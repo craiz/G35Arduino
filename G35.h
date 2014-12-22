@@ -148,9 +148,9 @@ class G35 {
                                                    uint8_t& intensity));
   virtual void broadcast_intensity(uint8_t intensity);
 
- protected:
-
   virtual light_count_t get_broadcast_bulb() = 0;
+
+ protected:
 
   light_count_t light_count_;
 };

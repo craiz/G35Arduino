@@ -55,6 +55,7 @@
 #include <ControllerProgramSeahawks.h>
 #include <ControllerProgramUW.h>
 #include <ControllerProgramDissolve.h>
+#include <ControllerProgramCrossOverWave.h>
 
 #include <MEORandomStrobe.h>
 #include <SequenceUtils.h>
@@ -83,6 +84,8 @@ uint8_t program_sequence[] =
         SPORTS_PROGRAM,
         CONTROLLER_PROGRAM_RAINBOW_CHASE,
         SPORTS_PROGRAM,
+        CONTROLLER_PROGRAM_CROSSOVERWAVE,
+        SPORTS_PROGRAM,
         CONTROLLER_PROGRAM_CANDY_CANE,
         SPORTS_PROGRAM,
         CONTROLLER_PROGRAM_STROBE_GREEN,
@@ -108,6 +111,7 @@ uint8_t program_sequence[] =
         CONTROLLER_PROGRAM_ICE,
         CONTROLLER_PROGRAM_STROBE_RED,
         CONTROLLER_PROGRAM_RAINBOW_CHASE,
+        CONTROLLER_PROGRAM_CROSSOVERWAVE,
         CONTROLLER_PROGRAM_CANDY_CANE,
         CONTROLLER_PROGRAM_STROBE_GREEN,
         CONTROLLER_PROGRAM_FADE_IN_FADE_OUT,
@@ -197,6 +201,9 @@ LightProgram* CreateProgram(uint8_t programIndex)
     case CONTROLLER_PROGRAM_DISSOLVE:
         currentProgramDuration = 60000;
         return new ControllerProgramDissolve(lights);
+    case CONTROLLER_PROGRAM_CROSSOVERWAVE:
+        currentProgramDuration = 45000;
+        return new ControllerProgramCrossOverWave(lights);
     }
     return NULL;
 }

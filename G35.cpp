@@ -24,39 +24,39 @@
 #include <G35.h>
 
 G35::G35()
-  :	light_count_(0) 
+  : light_count_(0) 
 {
 }
 
 bool G35::set_color_if_in_range(light_count_t position, uint8_t intensity, color_t color)
 {
-	if (position >= light_count_)
-	{
-    	return false;
-  	}
-  	set_color(position, intensity, color);
+    if (position >= light_count_)
+    {
+        return false;
+    }
+    set_color(position, intensity, color);
 
-  	return true;
+    return true;
 }
 
 // Returns 12-bit color from red, green, and blue components
 color_t G35::color(uint8_t r, uint8_t g, uint8_t b)
 {
-  	return COLOR(r, g, b);
+    return COLOR(r, g, b);
 }
 
 color_t G35::color_hue(uint8_t h)
 {
-  	switch (h >> 4)
-	{
-	case 0:     h -= 0; return color(h, CHANNEL_MAX, 0);
-	case 1:     h -= 16; return color(CHANNEL_MAX, (CHANNEL_MAX - h), 0);
-	case 2:     h -= 32; return color(CHANNEL_MAX, 0, h);
-	case 3:     h -= 48; return color((CHANNEL_MAX - h), 0, CHANNEL_MAX);
-	case 4:     h -= 64; return color(0, h, CHANNEL_MAX);
-	case 5:     h -= 80; return color(0, CHANNEL_MAX, (CHANNEL_MAX - h));
-	default:	return COLOR_WHITE;
-  	}
+    switch (h >> 4)
+    {
+    case 0:     h -= 0; return color(h, CHANNEL_MAX, 0);
+    case 1:     h -= 16; return color(CHANNEL_MAX, (CHANNEL_MAX - h), 0);
+    case 2:     h -= 32; return color(CHANNEL_MAX, 0, h);
+    case 3:     h -= 48; return color((CHANNEL_MAX - h), 0, CHANNEL_MAX);
+    case 4:     h -= 64; return color(0, h, CHANNEL_MAX);
+    case 5:     h -= 80; return color(0, CHANNEL_MAX, (CHANNEL_MAX - h));
+    default:    return COLOR_WHITE;
+    }
 }
 
 void G35::fill_color(uint8_t begin, uint8_t count,
@@ -246,5 +246,5 @@ color_t G35::all_color(sequence_t color)
 
 void G35::broadcast_intensity(uint8_t intensity)
 {
-  	set_color(get_broadcast_bulb(), intensity, COLOR_BLACK);
+    set_color(get_broadcast_bulb(), intensity, COLOR_BLACK);
 }

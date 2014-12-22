@@ -32,6 +32,7 @@
             <Button x:Name="AlternateDirectionButton" Content="AlternateDirection" Click="AlternateDirectionButton_Click" />
             <Button x:Name="FadeSolidButton" Content="FadeSolid" Click="FadeSolidButton_Click" />
             <Button x:Name="ForwardWaveButton" Content="ForwardWave" Click="ForwardWaveButton_Click" />
+            <Button x:Name="SpookyEyesButton" Content="SpookyEyes" Click="SpookyEyesButton_Click"  />
         </StackPanel>
         
         <ListBox x:Name="LightBulbs" Grid.Row="1" ItemTemplate="{StaticResource LightBulbTemplate}" Background="{x:Null}">

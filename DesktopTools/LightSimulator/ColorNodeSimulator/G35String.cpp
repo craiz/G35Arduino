@@ -34,12 +34,12 @@ G35String::G35String()
 
 void G35String::Configure(uint8_t pin, light_count_t light_count,
                      light_count_t physical_light_count,
-                     light_count_t bulb_zero, bool is_forward,
+                     bool is_forward,
                      STRING_LAYOUT layout)
 {
     pin_ = pin;
     physical_light_count_ = physical_light_count;
-    bulb_zero_ = bulb_zero;
+    bulb_zero_ = physical_light_count - light_count;
     is_forward_ = is_forward;
     pinMode(pin, OUTPUT);
     light_count_ = light_count;

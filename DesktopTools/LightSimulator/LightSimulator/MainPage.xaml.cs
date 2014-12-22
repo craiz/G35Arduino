@@ -139,7 +139,7 @@ namespace LightSimulator
             byte option = 4;
             UInt16 delay = 10;
 
-            SetupLightProgram(ColorNodeSimulator.LightProgramType.FadeInFadeOutSolidColors, pattern, option, delay);
+            SetupLightProgram(ColorNodeSimulator.LightProgramType.FadeInFadeOutSingleColors, pattern, option, delay);
         }
 
         private void ForwardWaveButton_Click(object sender, RoutedEventArgs e)
@@ -153,6 +153,19 @@ namespace LightSimulator
             update_pattern = 81;
             update_option = 0x04;
             update_delay = delay;
+        }
+
+        private void SpookyEyesButton_Click(object sender, RoutedEventArgs e)
+        {
+            byte pattern = 0;
+            byte option = 0x00;
+            UInt16 delay = 0;
+
+            SetupLightProgram(ColorNodeSimulator.LightProgramType.SpookyEyes, pattern, option, delay);
+
+            update_pattern = 0;
+            update_option = 0x00;
+            update_delay = 0;
         }
 
         private byte update_pattern;
@@ -244,5 +257,7 @@ namespace LightSimulator
             timer.Interval = new TimeSpan(0, 0, 0, 0, (int)simulator.GetDelay());
             timer.Start();
         }
+
+
     }
 }

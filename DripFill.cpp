@@ -26,7 +26,7 @@ DripFill::DripFill(G35& g35, ProgramCommand *pCommand)
     m_TargetBulb = light_count_ - 1;
 }
 
-bool DripFill::Initialize(pattern_t pattern, uint8_t option, delay_t delay)
+bool DripFill::Initialize(pattern_t pattern, option_t option, delay_t delay)
 {
     DebugPrintf("Initializing...\n");
 
