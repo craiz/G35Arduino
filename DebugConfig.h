@@ -4,7 +4,7 @@
 #include <SerialPrintf.h>
 
 // Override which can be used to disable all zones
-#define DEBUG_MASTER                        1
+#define DEBUG_MASTER                        0
 
 #define DEBUG_CONTROLLER                    (1 && DEBUG_MASTER)
 #define DEBUG_NODE                          (1 && DEBUG_MASTER)

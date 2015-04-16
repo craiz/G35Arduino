@@ -230,7 +230,7 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     pProgram->delay = 500;
 
     // Set up the extra data needed for the chase program.
-    extraDataSize = SetupControllerSequence(pProgram, SEQUENCE_PATTERN_SEAHAWKS_LONG);
+    extraDataSize = SetupControllerSequence(pProgram, SEQUENCE_PATTERN_SEAHAWKS);
     payloadSize += extraDataSize;
 
     SendCommand();

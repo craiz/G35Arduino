@@ -55,8 +55,7 @@ typedef enum
     SEQUENCE_PATTERN_ICE,                       // 32
     SEQUENCE_PATTERN_CANDY_CANE,                // 33
     SEQUENCE_PATTERN_UW,                        // 34
-    SEQUENCE_PATTERN_SEAHAWKS_SHORT,            // 35
-    SEQUENCE_PATTERN_SEAHAWKS_LONG,             // 36
+    SEQUENCE_PATTERN_SEAHAWKS,                  // 35
 
 
     SEQUENCE_PATTERN_COUNT  

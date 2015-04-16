@@ -121,6 +121,10 @@ bool ControllerProgramUW::Initialize(pattern_t pattern, option_t option, delay_t
     bulb_data[48] = encodedYellow;
     SendCommand();
 
+    // TODO: Fix snowflake grouping.
+    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
+    SendCommand();
+
     // Purple/Yellow Chase: Roof, Yard
     DebugPrintf("Configuring Purple/Yellow Chase\n");
     ProgramCommand* pProgram = (ProgramCommand *)payloadData;

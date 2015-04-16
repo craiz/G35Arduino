@@ -117,7 +117,7 @@ void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 
 // Change this to define the string configuration.
-#define STRING_TYPE     STRING_TYPE_STAR
+#define STRING_TYPE     STRING_TYPE_LINEAR
 
 #if (STRING_TYPE == STRING_TYPE_LINEAR)
 
@@ -349,6 +349,7 @@ void setup()
     myRFControllerID = RF_CONTROLLER_ID_DEFAULT;
     myStringID = STRING_ID_DEFAULT;
     memset(myStringGroups, STRING_GROUP_DEFAULT, STRING_GROUP_COUNT);
+    myStringGroups[0] = 3;
     myPhysicalLightCount = PHYSICAL_LIGHT_COUNT_DEFAULT;
     myLogicalLightCount = LOGICAL_LIGHT_COUNT_DEFAULT;
     myEnumerationDirection = ENUMERATION_DIRECTION_DEFAULT;

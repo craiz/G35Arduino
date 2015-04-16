@@ -97,7 +97,7 @@ uint32_t ControllerProgramSteppedWave::Do()
         program->command.address = PACK_STRING_GROUP(i + 1);
         program->command.option = COMMAND_OPTION_GROUP_B;
         SendCommand();
-        delay(50);
+        delay(25);
     }
 
     return delay_;

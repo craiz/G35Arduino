@@ -180,9 +180,9 @@ bool ControllerProgramHolly::Initialize(pattern_t pattern, option_t option, dela
     bulb_data[10] = encodedGreen;
     bulb_data[11] = encodedRed;
     bulb_data[12] = encodedGreen;
-    bulb_data[43] = encodedGreen;
-    bulb_data[44] = encodedRed;
-    bulb_data[45] = encodedGreen;
+    bulb_data[40] = encodedGreen;
+    bulb_data[41] = encodedRed;
+    bulb_data[42] = encodedGreen;
     SendCommand();
 
     DebugPrintf("Configuring living room window\n");
