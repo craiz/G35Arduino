@@ -120,17 +120,13 @@ bool ControllerProgramAlternateDirection::Initialize(pattern_t pattern, option_t
     // Snowflake:
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type = COMMAND_PROGRAM;
-    pProgram->command.address = STRING_ID_SNOWFLAKE;
-    pProgram->command.option = COMMAND_OPTION_DEFER;
+    pProgram->command.address = STRING_GROUP_ALL;
+    pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     pProgram->command.layout = snowflakeLayouts[currentSnowflakeLayout];
     pProgram->command.seed = seed;
     pProgram->delay = DELAY_DEFAULT;
     pProgram->option = PROGRAM_OPTION_WAIT;
     pProgram->program = COLOR_NODE_PROGRAM_ALTERNATE_DIRECTION_WAVE;
-    SendCommand();
-
-    // TODO: Fix snowflake grouping.
-    pProgram->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     // Send commit command to apply all the commands.

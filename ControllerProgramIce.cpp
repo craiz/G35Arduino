@@ -152,8 +152,8 @@ bool ControllerProgramIce::Initialize(pattern_t pattern, option_t option, delay_
     pProgram = (ProgramCommand *)payloadData;
     memset(pProgram, 0, sizeof(ProgramCommand));
     pProgram->command.type= COMMAND_PROGRAM;
-    pProgram->command.address = STRING_ID_SNOWFLAKE;
-    pProgram->command.option = COMMAND_OPTION_DEFER;
+    pProgram->command.address = STRING_GROUP_ALL;
+    pProgram->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     pProgram->command.layout = STRING_LAYOUT_HORIZONTAL_LINES_CENTER;
     pProgram->delay = 50;
     pProgram->pattern = 3; // number of colors
@@ -176,10 +176,6 @@ bool ControllerProgramIce::Initialize(pattern_t pattern, option_t option, delay_
 
     payloadSize = sizeof(ProgramCommand) + (pProgram->pattern * 2) + 3;
 
-    SendCommand();
-
-    // TODO: Fix snowflake grouping.
-    pProgram->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     // Roof line is a blue/white wave

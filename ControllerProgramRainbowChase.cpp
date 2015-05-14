@@ -46,14 +46,8 @@ bool ControllerProgramRainbowChase::Initialize(pattern_t pattern, option_t optio
     SendCommand();
 
     // Snowflakes use reduced layout
-    command->command.address = STRING_ID_SNOWFLAKE;
-    command->command.option = COMMAND_OPTION_DEFER;
-    command->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
-    SendCommand();
-
-    // TODO: Fix snowflake grouping
-    command->command.address = STRING_ID_SNOWFLAKE_2;
-    command->command.option = COMMAND_OPTION_DEFER;
+    command->command.address = STRING_GROUP_ALL;
+    command->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     command->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
     SendCommand();
 

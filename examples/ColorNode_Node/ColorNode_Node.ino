@@ -418,17 +418,17 @@ ADDRESSED_AS GetAddressedAs(Command *pCommand)
         return ADDRESSED_AS_ID;
     }
     else
-    {   
-        uint8_t group = 0x10;
+    {
+        uint8_t group = COMMAND_OPTION_GROUP_A;
         for (uint8_t i = 0; i < STRING_GROUP_COUNT; i++)
         {
-            group = group << i;
-
             if ((pCommand->option & group) && IS_STRING_GROUP(pCommand->address, myStringGroups[i]))
             {
                 DebugPrintf("Command addressed to me by group %c.\n", 'A' + i);
                 return ADDRESSED_AS_GROUP;
             }
+
+            group = group << 1;
         }
     }
 

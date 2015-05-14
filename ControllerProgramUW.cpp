@@ -84,8 +84,8 @@ bool ControllerProgramUW::Initialize(pattern_t pattern, option_t option, delay_t
     // Yellow and Purple: Snowflake
     DebugPrintf("Configuring Snowflake Purple and Yellow\n");
     payloadSize = sizeof(RawCommand) + 49;
-    rawCommand->command.address = STRING_ID_SNOWFLAKE;
-    rawCommand->command.option = COMMAND_OPTION_DEFER;
+    rawCommand->command.address = STRING_GROUP_ALL;
+    rawCommand->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     rawCommand->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
     rawCommand->start_bulb = 0;
     rawCommand->end_bulb = 48;
@@ -119,10 +119,6 @@ bool ControllerProgramUW::Initialize(pattern_t pattern, option_t option, delay_t
     bulb_data[46] = encodedYellow;
     bulb_data[47] = encodedYellow;
     bulb_data[48] = encodedYellow;
-    SendCommand();
-
-    // TODO: Fix snowflake grouping.
-    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     // Purple/Yellow Chase: Roof, Yard

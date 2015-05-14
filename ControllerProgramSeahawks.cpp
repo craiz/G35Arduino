@@ -92,8 +92,8 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     // Blue and Green: Snowflake
     DebugPrintf("Configuring Snowflake Blue and Green\n");
     payloadSize = sizeof(RawCommand) + 49;
-    rawCommand->command.address = STRING_ID_SNOWFLAKE;
-    rawCommand->command.option = COMMAND_OPTION_DEFER;
+    rawCommand->command.address = STRING_GROUP_ALL;
+    rawCommand->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     rawCommand->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
     rawCommand->start_bulb = 0;
     rawCommand->end_bulb = 48;
@@ -130,10 +130,6 @@ bool ControllerProgramSeahawks::Initialize(pattern_t pattern, option_t option, d
     bulb_data[46] = encodedGreen;
     bulb_data[47] = encodedGreen;
     bulb_data[48] = encodedGreen;
-    SendCommand();
-
-    // TODO: Fix snowflake grouping.
-    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     uint8_t twelveBase = 2;

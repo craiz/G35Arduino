@@ -265,8 +265,8 @@ bool ControllerProgramHolly::Initialize(pattern_t pattern, option_t option, dela
     // Snowflake Big
     DebugPrintf("Configuring snowflake big\n");
     payloadSize = sizeof(RawCommand) + 49;
-    rawCommand->command.address = STRING_ID_SNOWFLAKE;
-    rawCommand->command.option = COMMAND_OPTION_DEFER;
+    rawCommand->command.address = STRING_GROUP_ALL;
+    rawCommand->command.option = COMMAND_OPTION_DEFER | COMMAND_OPTION_GROUP_C;
     rawCommand->command.layout = STRING_LAYOUT_SNOWFLAKE_REDUCED;
     rawCommand->start_bulb = 0;
     rawCommand->end_bulb = 48;
@@ -309,10 +309,6 @@ bool ControllerProgramHolly::Initialize(pattern_t pattern, option_t option, dela
     bulb_data[47] = encodedGreen;
     bulb_data[48] = encodedRed;
 
-    SendCommand();    
-
-    // TODO: Fix snowflake grouping.
-    rawCommand->command.address = STRING_ID_SNOWFLAKE_2;
     SendCommand();
 
     // Yard
